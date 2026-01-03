@@ -3,11 +3,13 @@
 
 namespace marked_files {
 	ostream::int_type ostream::overflow(int_type ch) {
-		if (ch == '%' && last_ == '\n') { 
-			if (! forward_.put(ch)) { return traits_type::eof(); }
+		if (traits_type::eq_int_type(ch, traits_type::eof())) { return ch; }
+		char_type c { traits_type::to_char_type(ch) };
+		if (c == '%' && last_ == '\n') { 
+			if (! forward_.put(c)) { return traits_type::eof(); }
 		}
-		if (! forward_.put(ch)) { return traits_type::eof(); }
-		last_ = ch;
-		return 0;
+		if (! forward_.put(c)) { return traits_type::eof(); }
+		last_ = c;
+		return traits_type::to_int_type(0);
 	}
 }

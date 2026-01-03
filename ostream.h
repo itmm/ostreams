@@ -6,7 +6,7 @@
 namespace marked_files {
 	class ostream: private std::streambuf, public std::ostream {
 			std::ostream& forward_;
-			int_type last_ = '\n';
+			char_type last_ = '\n';
 
 			int_type overflow(int_type ch) override;
 

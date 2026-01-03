@@ -106,7 +106,7 @@ Post gelernt [2]. Hier ist die Header-Datei `ostream.h`
 namespace marked_files {
 	class ostream: private std::streambuf, public std::ostream {
 			std::ostream& forward_;
-			int_type last_ = '\n';
+			char_type last_ = '\n';
 
 			int_type overflow(int_type ch) override;
 
@@ -129,15 +129,37 @@ Die Implementierung in `ostream.cpp` sieht so aus:
 
 namespace marked_files {
 	ostream::int_type ostream::overflow(int_type ch) {
-		if (ch == '%' && last_ == '\n') { 
-			if (! forward_.put(ch)) { return traits_type::eof(); }
+		if (traits_type::eq_int_type(ch, traits_type::eof())) { return ch; }
+		char_type c { traits_type::to_char_type(ch) };
+		if (c == '%' && last_ == '\n') { 
+			if (! forward_.put(c)) { return traits_type::eof(); }
 		}
-		if (! forward_.put(ch)) { return traits_type::eof(); }
-		last_ = ch;
-		return 0;
+		if (! forward_.put(c)) { return traits_type::eof(); }
+		last_ = c;
+		return traits_type::to_int_type(0);
 	}
 }
 ```
+
+
+## Warum funktioniert das?
+
+Der `std::streambuf` verwaltet einen Puffer-Speicher, in dem Zeichen
+gesammelt werden, bevor sie weiter verarbeitet werden. Doch davon ist in
+der Implementierung nichts zu sehen.
+
+Immer wenn der Puffer voll ist, so wird die Methode `overflow` mit dem
+nächsten auszugebenden Zeichen aufgerufen. Da es in unserem Fall gar keinen
+Puffer gibt, wird diese Methode für jedes Zeichen aufgerufen. Das machen
+wir uns zu Nutze, um jedes Zeichen einzeln zu behandeln.
+
+Als Rückgabewert von `overflow` ist nur `traits_type::eof()` interessant.
+Dieser Wert signalisiert einen Fehler. Um formal alles richtig zu machen,
+verwenden wir die `traits_type` Klasse, um vom `int_type` zum `char_type`
+und zurück umzuwandeln. Dies ermöglicht es, dass wir unseren `stream` nicht
+nur mit dem Datentyp `char` erzeugen, sondern auch andere Typen ermöglichen.
+Aber das ist für uns hier nicht relevant.
+
 
 [1] Lattice C++ für den Amiga, Ralph Babel, Amiga Magazin 4/1989, Seite 150,
     Markt & Technik Verlag, München
