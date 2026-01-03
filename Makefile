@@ -11,12 +11,17 @@ all: .mdp_run
 	@date >$@
 
 test: t_ostream
-	@./t_ostream
+	./t_ostream
 
-t_ostream: t_ostream.o ostream.o
+t_ostream.o: ostream.h
+
+t_ostream: t_ostream.o
 	@echo build $@
 	@$(CXX) $(CXXFLAGS) -o $@ $^
 
 %.o: %.cpp
 	@echo c++ $@
 	@$(CXX) $(CXXFLAGS) -c $<
+
+clean:
+	@rm -f .mdp_run *.o t_ostream
