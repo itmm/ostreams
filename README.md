@@ -139,7 +139,7 @@ namespace marked_files {
 }
 ```
 
-[1] Lattice C++ für den Amiga, Ralph Babel, Amiga Magazin 4/1989,
+[1] Lattice C++ für den Amiga, Ralph Babel, Amiga Magazin 4/1989, Seite 150,
     Markt & Technik Verlag, München
 
 [2] How to inherit from std::ostream?, Answer form Ben and aSemy,
