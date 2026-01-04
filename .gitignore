@@ -1,3 +1,4 @@
 *.o
+*.a
 t_marked-files
 .mdp_run

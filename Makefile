@@ -1,27 +1,16 @@
-.PHONY: all test clean
+include ../Makefile.base
+include Makefile.lib
 
-CXXFLAGS += -std=c++20 -O3 -Wall -pedantic -Werror -I..
+t_marked-files.o: ../marked-files/marked-files.h
 
-all: .mdp_run
-	@$(MAKE) test
-
-.mdp_run: $(wildcard *.md)
-	@[ -x "$$(command -v mdp)" ] || echo "mdp not installed" 1>&2
-	@[ -x "$$(command -v mdp)" ] && mdp README.md
-	@date >$@
+t_marked-files: ../marked-files/libmarked-files.a
+	@echo building $@
+	@$(CXX) $(CXXARGS) -o $@ t_marked-files.o -L. -lmarked-files
 
 test: t_marked-files
-	./t_marked-files
-
-t_marked-files.o: marked-files.h
-
-t_marked-files: t_marked-files.o
-	@echo build $@
-	@$(CXX) $(CXXFLAGS) -o $@ $^
-
-%.o: %.cpp
-	@echo c++ $@
-	@$(CXX) $(CXXFLAGS) -c $<
+	@echo "testing marked-files ... \c";
+	@./t_marked-files
+	@echo "ok"
 
 clean:
-	@rm -f .mdp_run *.o t_marked-files
+	@rm -f libmarked-files.a marked-files.o t_marked-files
