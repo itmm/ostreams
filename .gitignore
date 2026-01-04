@@ -1,4 +1,4 @@
 *.o
 *.a
-t_marked-files
+t_marked-files-out
 .mdp_run

@@ -1,16 +1,16 @@
 include ../Makefile.base
 include Makefile.lib
 
-t_marked-files.o: ../marked-files/marked-files.h
+t_marked-files-out.o: ../marked-files-out/marked-files-out.h
 
-t_marked-files: ../marked-files/libmarked-files.a
+t_marked-files-out: t_marked-files-out.o ../marked-files-out/libmarked-files-out.a
 	@echo building $@
-	@$(CXX) $(CXXARGS) -o $@ t_marked-files.o -L. -lmarked-files
+	@$(CXX) $(CXXARGS) -o $@ t_marked-files-out.o -L. -lmarked-files-out
 
-test: t_marked-files
-	@echo "testing marked-files ... \c";
-	@./t_marked-files
+test: t_marked-files-out
+	@echo "testing marked-files-out ... \c";
+	@./t_marked-files-out
 	@echo "ok"
 
 clean:
-	@rm -f libmarked-files.a marked-files.o t_marked-files
+	@rm -f libmarked-files-out.a marked-files-out.o t_marked-files-out t_marked-files-out.o

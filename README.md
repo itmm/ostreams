@@ -67,7 +67,7 @@ Das ist die Aufgabe unseres `basic_ostream`s: leite alle Zeichen an einen
 anderen `std::basic_ostream` weiter, aber verdoppele dabei Prozentzeichen,
 wenn sie am Anfang einer Zeile stehen.
 
-Ich habe einen entsprechenden Unit Test in der Datei `t_marked-files.cpp`
+Ich habe einen entsprechenden Unit Test in der Datei `t_marked-files-out.cpp`
 erstellt. Die Unit Tests werden im Hauptprogramm aufgerufen:
 
 ```c++
@@ -82,7 +82,7 @@ Die eigentliche Test-Funktion lenkt die Ausgabe in eine Zeichenkette um:
 #include <cassert>
 #include <sstream>
 
-#include "marked-files.h"
+#include "marked-files-out.h"
 
 static void test_ostream(const std::string& in, const std::string& expected) {
 	std::ostringstream out;
@@ -187,7 +187,7 @@ Wie bei den Standard `iostream` Klassen gibt es auch die Spezialisierung
 jedoch `streams` mit unterschiedlichen Basis-Typen zu verwenden.
 
 Den Trick mit der privaten Basis-Klasse habe ich aus einem Stack Overflow
-Post gelernt [2]. Hier ist die Header-Datei `marked-files.h`
+Post gelernt [2]. Hier ist die Header-Datei `marked-files-out.h`
 
 ```c++
 #pragma once
@@ -280,7 +280,7 @@ Wir haben die Klasse geschrieben, um Kommandos integrieren zu können. Dies
 wird zum Beispiel benutzt, um mehrere Dateien in einem Archiv zusammenzufassen.
 Oder um Prüfsummen über den Datei-Inhalt zu berechnen und hinzuzufügen.
 
-Fügen wir in `t_marked-files.cpp` einen einfachen Unit Test hinzu. Dieser Test
+Fügen wir in `t_marked-files-out.cpp` einen einfachen Unit Test hinzu. Dieser Test
 demonstriert ebenfalls, wie wir Kommandos verwenden können:
 
 ```c++
@@ -325,8 +325,8 @@ static inline void no_nl_in_commands() {
 // ...
 ```
 
-Fügen wir passende Methoden in `marked-files.h` hinzu. Dabei halten wir in dem
-zusätzlichen Flag `in_command_` fest, ob wir gerade im Kommando-Modus sind.
+Fügen wir passende Methoden in `marked-files-out.h` hinzu. Dabei halten wir in
+dem zusätzlichen Flag `in_command_` fest, ob wir gerade im Kommando-Modus sind.
 In diesem Modus escapen wir keine Prozentzeichen und erlauben keinen
 Zeilenumbruch:
 
