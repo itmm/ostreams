@@ -12,7 +12,7 @@ static void test_ostream(const std::string& in, const std::string& expected) {
 }
 
 // test functions
-#line 309
+#line 311
 
 static inline void no_nl_in_commands() {
 	std::ostringstream out;
@@ -24,7 +24,7 @@ static inline void no_nl_in_commands() {
 	assert(out.str() == "abc\n%test x");
 }
 
-#line 287
+#line 289
 
 static inline void add_simple_command() {
 	std::ostringstream out;
@@ -66,9 +66,9 @@ static inline void simple_test() {
 #line 74
 int main() {
 	// run tests
-#line 322
+#line 324
 	no_nl_in_commands();
-#line 300
+#line 302
 	add_simple_command();
 #line 174
 	escape_first_percent();

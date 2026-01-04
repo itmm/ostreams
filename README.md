@@ -234,16 +234,18 @@ Die eigentliche Logik findet in der Methode `overflow` statt:
 // ...
 			CharT last_ { '\n' };
 
+			Traits::int_type forward_status() {
+				return forward_ ? Traits::to_int_type(0) : Traits::eof();
+			}
+
 			Traits::int_type overflow(Traits::int_type ch) override
 			{
 				if (Traits::eq_int_type(ch, Traits::eof())) { return ch; }
 				CharT c { Traits::to_char_type(ch) };
-				if (c == '%' && last_ == '\n') { 
-					if (! forward_.put(c)) { return Traits::eof(); }
-				}
-				if (! forward_.put(c)) { return Traits::eof(); }
+				if (c == '%' && last_ == '\n') { forward_.put(c); }
+				forward_.put(c);
 				last_ = c;
-				return Traits::to_int_type(0);
+				return forward_status();
 			}
 // ...
 ```
@@ -323,7 +325,7 @@ static inline void no_nl_in_commands() {
 // ...
 ```
 
-Fügen wir eine passende Methode in `ostream.h` hinzu. Dabei halten wir in dem
+Fügen wir passende Methoden in `ostream.h` hinzu. Dabei halten wir in dem
 zusätzlichen Flag `in_command_` fest, ob wir gerade im Kommando-Modus sind.
 In diesem Modus escapen wir keine Prozentzeichen und erlauben keinen
 Zeilenumbruch:
@@ -341,7 +343,7 @@ Zeilenumbruch:
 				if (in_command_) {
 					if (c == '\n') { return Traits::eof(); }
 					forward_.put(c); last_ = c;
-					return forward_ ? Traits::to_int_type(0) : Traits::eof();
+					return forward_status();
 				}
 // ...
 			}
@@ -351,13 +353,14 @@ Zeilenumbruch:
 				if (last_ != '\n') { this->put('\n'); }
 				in_command_ = true;
 				*this << '%' << name << ' ';
-				return forward_ ? Traits::to_int_type(0) : Traits::eof();
+				return forward_status();
 			}
 
 			Traits::int_type close_command() { 
 				if (! in_command_) { return Traits::eof(); }
 				in_command_ = false;
-				return this->put('\n') ? Traits::to_int_type(0) : Traits::eof();
+				this->put('\n');
+				return forward_status();
 			}
 // ...
 ```
