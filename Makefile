@@ -10,12 +10,12 @@ all: .mdp_run
 	@[ -x "$$(command -v mdp)" ] && mdp README.md
 	@date >$@
 
-test: t_ostream
-	./t_ostream
+test: t_marked-files
+	./t_marked-files
 
-t_ostream.o: ostream.h
+t_marked-files.o: marked-files.h
 
-t_ostream: t_ostream.o
+t_marked-files: t_marked-files.o
 	@echo build $@
 	@$(CXX) $(CXXFLAGS) -o $@ $^
 
@@ -24,4 +24,4 @@ t_ostream: t_ostream.o
 	@$(CXX) $(CXXFLAGS) -c $<
 
 clean:
-	@rm -f .mdp_run *.o t_ostream
+	@rm -f .mdp_run *.o t_marked-files

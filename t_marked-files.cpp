@@ -2,7 +2,7 @@
 #include <cassert>
 #include <sstream>
 
-#include "ostream.h"
+#include "marked-files.h"
 
 static void test_ostream(const std::string& in, const std::string& expected) {
 	std::ostringstream out;
