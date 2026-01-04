@@ -301,6 +301,28 @@ static inline void add_simple_command() {
 // ...
 ```
 
+Zeilenumbrüche sind in Kommandos nicht erlaubt:
+
+```c++
+// ...
+// test functions
+
+static inline void no_nl_in_commands() {
+	std::ostringstream out;
+	marked_files::ostream escaped { out };
+	escaped << "abc";
+	escaped.open_command("test");
+	escaped << "x\nyz";
+	assert(! escaped);
+	assert(out.str() == "abc\n%test x");
+}
+
+// ...
+	// run tests
+	no_nl_in_commands();
+// ...
+```
+
 Fügen wir eine passende Methode in `ostream.h` hinzu. Dabei halten wir in dem
 zusätzlichen Flag `in_command_` fest, ob wir gerade im Kommando-Modus sind.
 In diesem Modus escapen wir keine Prozentzeichen und erlauben keinen

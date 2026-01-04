@@ -12,7 +12,7 @@ namespace marked_files {
 			std::basic_ostream<CharT, Traits>& forward_;
 #line 222
 			CharT last_ { '\n' };
-#line 312
+#line 334
 			bool in_command_ { false };
 #line 236
 
@@ -20,7 +20,7 @@ namespace marked_files {
 			{
 				if (Traits::eq_int_type(ch, Traits::eof())) { return ch; }
 				CharT c { Traits::to_char_type(ch) };
-#line 319
+#line 341
 				if (in_command_) {
 					if (c == '\n') { return Traits::eof(); }
 					forward_.put(c); last_ = c;
@@ -37,7 +37,7 @@ namespace marked_files {
 #line 204
 
 		public:
-#line 328
+#line 350
 			Traits::int_type open_command(const std::string& name) {
 				if (last_ != '\n') { this->put('\n'); }
 				in_command_ = true;

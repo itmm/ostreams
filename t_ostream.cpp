@@ -12,6 +12,18 @@ static void test_ostream(const std::string& in, const std::string& expected) {
 }
 
 // test functions
+#line 309
+
+static inline void no_nl_in_commands() {
+	std::ostringstream out;
+	marked_files::ostream escaped { out };
+	escaped << "abc";
+	escaped.open_command("test");
+	escaped << "x\nyz";
+	assert(! escaped);
+	assert(out.str() == "abc\n%test x");
+}
+
 #line 287
 
 static inline void add_simple_command() {
@@ -54,6 +66,8 @@ static inline void simple_test() {
 #line 74
 int main() {
 	// run tests
+#line 322
+	no_nl_in_commands();
 #line 300
 	add_simple_command();
 #line 174
