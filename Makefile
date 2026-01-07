@@ -1,4 +1,4 @@
-include ../Makefile.base
+include Makefile.base
 include Makefile.lib
 
 t_marked-files-out.o: $(LIBS_H)
