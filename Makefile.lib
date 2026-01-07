@@ -1,5 +1,9 @@
-../marked-files-out/libmarked-files-out.a: ../marked-files-out/marked-files-out.o
-	@echo building $@
-	@$(AR) -rc $@ $^
+vpath marked-files-out.% ../marked-files-out
+vpath libmarked-files-out.a ../marked-files-out
 
-../marked-files-out/marked-files-out.o: ../marked-files-out/marked-files-out.h
+libmarked-files-out.a: marked-files-out.o
+
+marked-files-out.o: marked-files-out.h
+
+LIBS_H += marked-files-out.h
+LIBS_O += libmarked-files-out.a
