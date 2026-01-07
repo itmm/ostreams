@@ -3,7 +3,6 @@ vpath libmarked-files-out.a ../marked-files-out
 
 libmarked-files-out.a: marked-files-out.o
 
-marked-files-out.o: marked-files-out.h
+include ../marked-files-out/marked-files-out.d
 
-LIBS_H += marked-files-out.h
-LIBS_O += libmarked-files-out.a
+LIBS += libmarked-files-out.a

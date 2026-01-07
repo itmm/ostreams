@@ -1,4 +1,5 @@
 *.o
-*.a
+libmarked-files-out.a
+*.d
 t_marked-files-out
 .mdp_run
