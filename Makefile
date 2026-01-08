@@ -1,9 +1,9 @@
 include Makefile.base
 include Makefile.lib
 
-t_marked-files-out.o: $(LIBS_H)
+include t_marked-files-out.d
 
-t_marked-files-out: t_marked-files-out.o $(LIBS_O)
+t_marked-files-out: t_marked-files-out.o $(LIBS)
 
 test: t_marked-files-out
 	./t_marked-files-out
