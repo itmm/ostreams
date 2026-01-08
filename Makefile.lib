@@ -1,10 +1,9 @@
 DIR := ../marked-files-out
-LIB := $(DIR)/libmarked-files-out.a
+LIB := libmarked-files-out.a
+FULL_LIB := $(DIR)/$(LIB)
 
-vpath marked-files-out.% $(DIR)
 
-$(LIB): $(LIB)(marked-files-out.o)
+$(FULL_LIB): $(DIR)/README.md
+	$(MAKE) -C $(DIR) lib
 
-include $(DIR)/marked-files-out.d
-
-LIBS += $(LIB)
+LIBS += $(FULL_LIB)
