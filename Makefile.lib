@@ -1,8 +1,10 @@
-vpath marked-files-out.% ../marked-files-out
-vpath libmarked-files-out.a ../marked-files-out
+DIR := ../marked-files-out
+LIB := $(DIR)/libmarked-files-out.a
 
-libmarked-files-out.a: marked-files-out.o
+vpath marked-files-out.% $(DIR)
 
-include ../marked-files-out/marked-files-out.d
+$(LIB): $(LIB)(marked-files-out.o)
 
-LIBS += libmarked-files-out.a
+include $(DIR)/marked-files-out.d
+
+LIBS += $(LIB)
