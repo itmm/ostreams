@@ -9,6 +9,9 @@ LINK.o = $(CXX) $(LDFLAGS) $(TARGET_ARCH)
 
 all: test
 
+%.d: %.cpp
+	$(CXX) -MM $(CPPFLAGS) $< -o $@
+
 sub_test:
 	$(MAKE) -C tests
 
