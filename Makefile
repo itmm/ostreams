@@ -1,6 +1,6 @@
-INC_DIR = .
+ETSHELL_DIR ?= ..
 GENERATED = marked-files-out.h marked-files-out.cpp t_marked-files-out.cpp
-include base.mk
+include with-mdp.mk
 include lib.mk
 
 include marked-files-out.d

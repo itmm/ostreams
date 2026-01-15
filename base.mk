@@ -1,6 +1,7 @@
 .PHONY: all test clean sub_test sub_test_clean
 
-CPPFLAGS += -I..
+ETSHELL_DIR ?= ..
+CPPFLAGS += -I$(ETSHELL_DIR)
 CXXFLAGS += -std=c++20 -O3 -Wall -pedantic -Werror
 
 LIBS :=

@@ -1,4 +1,5 @@
-DIR := ../marked-files-out
+ETSHELL_DIR ?= ..
+DIR := $(ETSHELL_DIR)/marked-files-out
 LIB := libmarked-files-out.a
 FULL_LIB := $(DIR)/$(LIB)
 

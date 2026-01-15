@@ -1,5 +1,5 @@
-INC_DIR ?= ..
-include $(INC_DIR)/base.mk
+ETSHELL_DIR ?= ..
+include $(ETSHELL_DIR)/base.mk
 
 $(GENERATED): .mdp_run
 
